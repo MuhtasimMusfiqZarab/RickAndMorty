@@ -1,11 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-interface HomeProps {}
-function index({}: HomeProps) {
+interface Props {}
+function index({}: Props) {
   return (
-    <View>
-      <Text>This is the home</Text>
+    <View style={styles.container}>
+      <Text>All the characters</Text>
     </View>
   );
 }
