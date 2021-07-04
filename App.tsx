@@ -7,7 +7,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <View style={styles.container}>
-        <Text>This is the barebone application</Text>
+        <Text>Hello World!</Text>
       </View>
     </NavigationContainer>
   );
@@ -15,9 +15,10 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    height: '100%',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
