@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet, Text, View} from 'react-native';
 
-import Home from './components/Home';
+import Home from '../components/Home';
 
 //this is stack
 const Stack = createStackNavigator();
