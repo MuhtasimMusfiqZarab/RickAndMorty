@@ -1,22 +1,54 @@
 import React, {createContext, useContext, ReactNode} from 'react';
-import {useQuery} from '@apollo/client';
+import {useQuery, gql} from '@apollo/client';
 
-//@ts-ignore
-import GET_EPISODES from '../api/graphql/query/episodes.query.gql';
+const GET_EPISODES = gql`
+  query {
+    characters(page: 2, filter: {name: "rick"}) {
+      info {
+        count
+      }
+      results {
+        name
+      }
+    }
+    location(id: 1) {
+      id
+    }
+    episodesByIds(ids: [1, 2]) {
+      id
+    }
+  }
+`;
 
-const EpisodesContext = createContext({});
+const EpisodesContext = createContext({
+  episodes: null,
+});
 
 interface Props {
   children: ReactNode;
 }
 
 function EpisodesProvider({children}: Props) {
-  const {data, error, loading, refetch} = useQuery(GET_EPISODES);
-
-  console.log('THis is the data from get episodes', data);
+  const {data, error, loading, refetch} = useQuery(
+    gql`
+      query {
+        characters {
+          results {
+            name
+          }
+        }
+      }
+    `,
+  );
+  console.log('Here is', data);
 
   return (
-    <EpisodesContext.Provider value={{}}>{children}</EpisodesContext.Provider>
+    <EpisodesContext.Provider
+      value={{
+        episodes: data,
+      }}>
+      {children}
+    </EpisodesContext.Provider>
   );
 }
 

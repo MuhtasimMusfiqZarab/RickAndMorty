@@ -8,6 +8,9 @@ import {
   Button,
 } from 'react-native';
 
+import {EpisodesProvider} from '../../_context/episodes';
+import Episodes from '../../components/episodes';
+
 interface Props {
   navigation: any;
   route: any;
@@ -15,15 +18,9 @@ interface Props {
 
 function index({navigation, route}: Props) {
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
-        <Text style={styles.title}>Here all the episodes</Text>
-        <Button
-          title="View Episode"
-          onPress={() => navigation.navigate('Episode', {id: 100})}
-        />
-      </View>
-    </SafeAreaView>
+    <EpisodesProvider>
+      <Episodes navigation={navigation} route={route} />
+    </EpisodesProvider>
   );
 }
 
