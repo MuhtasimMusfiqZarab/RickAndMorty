@@ -1,8 +1,12 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-interface Props {}
-function index({}: Props) {
+interface Props {
+  navigation: any;
+  route: any;
+}
+
+function index({navigation, route}: Props) {
   return (
     <View style={styles.container}>
       <Text>All the locations</Text>

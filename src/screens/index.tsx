@@ -14,7 +14,18 @@ const Stack = createStackNavigator();
 
 const EpisodesStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName="Episodes"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#62a4ab',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerTitleAlign: 'center',
+      }}>
       <Stack.Screen name="Episodes" component={EpisodesScreen} />
       <Stack.Screen name="Episode" component={EpisodeScreen} />
     </Stack.Navigator>
@@ -22,7 +33,18 @@ const EpisodesStack = () => {
 };
 const CharactersStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName="Characters"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#62a4ab',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerTitleAlign: 'center',
+      }}>
       <Stack.Screen name="Characters" component={CharactersScreen} />
       <Stack.Screen name="Character" component={CharacterScreen} />
     </Stack.Navigator>
@@ -30,7 +52,18 @@ const CharactersStack = () => {
 };
 const LocationsStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName="Locations"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#62a4ab',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerTitleAlign: 'center',
+      }}>
       <Stack.Screen name="Locations" component={LocationsScreen} />
       <Stack.Screen name="Location" component={LocationScreen} />
     </Stack.Navigator>
