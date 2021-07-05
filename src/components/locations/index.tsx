@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Button,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {FlatList} from 'react-native';
+
+import {Container, Card} from '../_root';
 
 import {useLocations} from '../../_context/locations';
 
@@ -20,35 +14,24 @@ function index({navigation, route}: Props) {
   const {locations} = useLocations();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
-        <FlatList
-          data={locations}
-          keyExtractor={location => location?.id}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Location', {id: item?.id})}>
-                <Text>{item?.name}</Text>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
-    </SafeAreaView>
+    <Container>
+      <FlatList
+        data={locations}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={location => location?.id}
+        renderItem={({item}) => {
+          return (
+            <Card
+              title={item?.name}
+              subTitle={`Type: ${item?.type}`}
+              navigation={navigation}
+              navigationRoute="Location"
+            />
+          );
+        }}
+      />
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 26,
-  },
-  title: {
-    textAlign: 'center',
-    marginVertical: 8,
-  },
-});
 
 export default index;
