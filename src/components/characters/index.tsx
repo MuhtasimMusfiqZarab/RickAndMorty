@@ -17,7 +17,7 @@ function index({navigation, route}: Props) {
         <Text style={styles.title}>Here all the episodes</Text>
         <Button
           title="View Episode"
-          onPress={() => navigation.navigate('Episode', {id: 100})}
+          onPress={() => navigation.navigate('Character', {id: 100})}
         />
       </View>
     </SafeAreaView>

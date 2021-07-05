@@ -1,12 +1,4 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Alert,
-  Button,
-} from 'react-native';
 
 import {EpisodesProvider} from '../../_context/episodes';
 import Episodes from '../../components/episodes';
@@ -23,17 +15,5 @@ function index({navigation, route}: Props) {
     </EpisodesProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 26,
-  },
-  title: {
-    textAlign: 'center',
-    marginVertical: 8,
-  },
-});
 
 export default index;

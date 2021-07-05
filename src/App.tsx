@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-// import {AppRegistry} from 'react-native';
 
 import {ApolloProvider} from '@apollo/client';
 import {client} from './lib/apollo';
@@ -17,7 +16,5 @@ const App = () => {
     </ApolloProvider>
   );
 };
-
-// AppRegistry.registerComponent('MyApplication', () => App);
 
 export default App;
