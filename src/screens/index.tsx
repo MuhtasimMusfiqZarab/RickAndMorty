@@ -1,6 +1,9 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {FontAwesome} from '@expo/vector-icons';
 
 import EpisodesScreen from './episodes';
 import EpisodeScreen from './episode';
@@ -9,7 +12,7 @@ import CharacterScreen from './character';
 import LocationsScreen from './locations';
 import LocationScreen from './location';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const EpisodesStack = () => {
@@ -73,7 +76,14 @@ const LocationsStack = () => {
 export default function IndexScreen() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Episodes" component={EpisodesStack} />
+      <Tab.Screen
+        name="Episodes"
+        component={EpisodesStack}
+        options={{
+          tabBarLabel: 'Home',
+          // tabBarIcon: ({color}) => <FontAwesome name="search" />,
+        }}
+      />
       <Tab.Screen name="Characters" component={CharactersStack} />
       <Tab.Screen name="Locations" component={LocationsStack} />
     </Tab.Navigator>
