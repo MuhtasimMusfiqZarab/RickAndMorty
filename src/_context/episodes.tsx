@@ -1,6 +1,9 @@
 import React, {createContext, useContext, ReactNode} from 'react';
 import {useQuery, gql} from '@apollo/client';
 
+//@ts-ignore
+import GET_EPISODES from '../api/query/episodes.query.gql';
+
 const EpisodesContext = createContext({
   episodes: null,
 });

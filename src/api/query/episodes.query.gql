@@ -1,9 +1,16 @@
-query GET_EPISODES($page: Int, $filter: FilterEpisode) {
-  episodes(page: $page, filter: $filter) {
+query GET_EPISODES {
+  episodes {
     info
     results {
       id
       name
+      air_date
+      episode
+      characters {
+        id
+        name
+      }
+      created
     }
   }
 }
