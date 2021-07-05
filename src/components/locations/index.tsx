@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {useEpisodes} from '../../_context/episodes';
+import {useLocations} from '../../_context/locations';
 
 interface Props {
   navigation: any;
@@ -17,18 +17,18 @@ interface Props {
 }
 
 function index({navigation, route}: Props) {
-  const {episodes} = useEpisodes();
+  const {locations} = useLocations();
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <FlatList
-          data={episodes}
-          keyExtractor={episode => episode?.id}
+          data={locations}
+          keyExtractor={location => location?.id}
           renderItem={({item}) => {
             return (
               <TouchableOpacity
-                onPress={() => navigation.navigate('Episode', {id: item?.id})}>
+                onPress={() => navigation.navigate('Location', {id: item?.id})}>
                 <Text>{item?.name}</Text>
               </TouchableOpacity>
             );

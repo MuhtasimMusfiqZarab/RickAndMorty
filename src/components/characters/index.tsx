@@ -1,7 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View, SafeAreaView, Button} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Button,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 
-import {useEpisodes} from '../../_context/episodes';
+import {useCharacters} from '../../_context/characters';
 
 interface Props {
   navigation: any;
@@ -9,15 +18,24 @@ interface Props {
 }
 
 function index({navigation, route}: Props) {
-  const {episodes} = useEpisodes();
+  const {characters} = useCharacters();
 
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.title}>Here all the episodes</Text>
-        <Button
-          title="View Episode"
-          onPress={() => navigation.navigate('Character', {id: 100})}
+        <FlatList
+          data={characters}
+          keyExtractor={character => character?.id}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Character', {id: item?.id})
+                }>
+                <Image source={{uri: item.image}} style={styles.image} />
+              </TouchableOpacity>
+            );
+          }}
         />
       </View>
     </SafeAreaView>
@@ -32,7 +50,11 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    marginVertical: 8,
+    marginVertical: 40,
+  },
+  image: {
+    height: 200,
+    width: 200,
   },
 });
 

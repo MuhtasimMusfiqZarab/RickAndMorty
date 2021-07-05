@@ -14,15 +14,18 @@ function CharactersProvider({children}: Props) {
     gql`
       query {
         characters {
+          info {
+            count
+          }
           results {
+            id
             name
+            image
           }
         }
       }
     `,
   );
-
-  console.log('I got the data', data);
 
   return (
     <CharactersContext.Provider
@@ -34,6 +37,6 @@ function CharactersProvider({children}: Props) {
   );
 }
 
-const useEpisodes = () => useContext(CharactersContext);
+const useCharacters = () => useContext(CharactersContext);
 
-export {CharactersProvider, useEpisodes};
+export {CharactersProvider, useCharacters};
