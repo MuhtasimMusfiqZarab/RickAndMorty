@@ -24,13 +24,21 @@ function index({navigation, route}: Props) {
       <View>
         <FlatList
           data={episodes}
+          showsVerticalScrollIndicator={false}
           keyExtractor={episode => episode?.id}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Episode', {id: item?.id})}>
-                <Text>{item?.name}</Text>
-              </TouchableOpacity>
+              <View style={styles.card}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('Episode', {id: item?.id})
+                  }>
+                  <Text style={styles.headerTitle}>{item?.name}</Text>
+                  <Text style={styles.subTitle}>
+                    Aired on: {item?.air_date}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             );
           }}
         />
@@ -43,11 +51,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 26,
+    marginHorizontal: 10,
   },
   title: {
     textAlign: 'center',
     marginVertical: 8,
+  },
+  card: {
+    borderWidth: 1,
+    borderColor: '#c7ccdb',
+    padding: 10,
+    margin: 5,
+    borderRadius: 5,
+  },
+
+  headerTitle: {
+    fontSize: 18,
+    color: '#2a324b',
+    paddingBottom: 10,
+  },
+  subTitle: {
+    fontSize: 15,
+    color: '#4f546c',
   },
 });
 
