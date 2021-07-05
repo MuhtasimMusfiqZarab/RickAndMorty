@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {FontAwesome} from '@expo/vector-icons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import EpisodesScreen from './episodes';
 import EpisodeScreen from './episode';
@@ -82,6 +83,10 @@ export default function IndexScreen() {
         options={{
           tabBarLabel: 'Home',
           // tabBarIcon: ({color}) => <FontAwesome name="search" />,
+          // tabBarIcon: ({color}) => <Icon name="plus" size={30} color="#900" />,
+          // tabBarIcon: ({color}) => (
+          //   <MaterialCommunityIcons name="home" color={color} size={26} />
+          // ),
         }}
       />
       <Tab.Screen name="Characters" component={CharactersStack} />
