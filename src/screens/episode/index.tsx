@@ -7,9 +7,11 @@ interface Props {
 }
 
 function index({navigation, route}: Props) {
+  const ids = route.params.id;
+
   return (
     <View style={styles.container}>
-      <Text>Episode Detail</Text>
+      <Text>Episode Detail {ids} </Text>
     </View>
   );
 }

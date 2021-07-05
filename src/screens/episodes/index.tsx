@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Alert,
+  Button,
+} from 'react-native';
 
 interface Props {
   navigation: any;
@@ -8,18 +15,27 @@ interface Props {
 
 function index({navigation, route}: Props) {
   return (
-    <View style={styles.container}>
-      <Text>All the episodes</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text style={styles.title}>Here all the episodes</Text>
+        <Button
+          title="View Episode"
+          onPress={() => navigation.navigate('Episode', {id: 100})}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    height: '100%',
-    alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
+    marginHorizontal: 26,
+  },
+  title: {
+    textAlign: 'center',
+    marginVertical: 8,
   },
 });
 
