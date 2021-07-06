@@ -22,7 +22,7 @@ const EpisodesStack = () => {
       initialRouteName="Episodes"
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#62a4ab',
+          backgroundColor: '#ee7168',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -41,7 +41,7 @@ const CharactersStack = () => {
       initialRouteName="Characters"
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#62a4ab',
+          backgroundColor: '#4AA0EC',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -60,7 +60,7 @@ const LocationsStack = () => {
       initialRouteName="Locations"
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#62a4ab',
+          backgroundColor: '#4AA0EC',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
