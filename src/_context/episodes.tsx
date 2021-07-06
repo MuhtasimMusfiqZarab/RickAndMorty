@@ -4,6 +4,8 @@ import {useQuery, gql} from '@apollo/client';
 //@ts-ignore
 import GET_EPISODES from '../api/query/episodes.query.gql';
 
+import getEpisodes from '../api/query/getEpisodes';
+
 const EpisodesContext = createContext({
   episodes: null,
 });
@@ -13,25 +15,7 @@ interface Props {
 }
 
 function EpisodesProvider({children}: Props) {
-  const {data, error, loading, refetch} = useQuery(
-    gql`
-      query {
-        episodes {
-          results {
-            id
-            name
-            air_date
-            episode
-            characters {
-              id
-              name
-            }
-            created
-          }
-        }
-      }
-    `,
-  );
+  const {data, error, loading, refetch} = useQuery(getEpisodes);
 
   return (
     <EpisodesContext.Provider
