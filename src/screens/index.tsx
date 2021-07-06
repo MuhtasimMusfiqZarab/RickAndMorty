@@ -1,10 +1,10 @@
 import React from 'react';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {FontAwesome} from '@expo/vector-icons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {SvgXml} from 'react-native-svg';
+import {CharacterIcon, EpisodeIcon, LocationIcon} from '../_icons';
 
 import EpisodesScreen from './episodes';
 import EpisodeScreen from './episode';
@@ -13,7 +13,7 @@ import CharacterScreen from './character';
 import LocationsScreen from './locations';
 import LocationScreen from './location';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const EpisodesStack = () => {
@@ -81,16 +81,32 @@ export default function IndexScreen() {
         name="Episodes"
         component={EpisodesStack}
         options={{
-          tabBarLabel: 'Home',
-          // tabBarIcon: ({color}) => <FontAwesome name="search" />,
-          // tabBarIcon: ({color}) => <Icon name="plus" size={30} color="#900" />,
-          // tabBarIcon: ({color}) => (
-          //   <MaterialCommunityIcons name="home" color={color} size={26} />
-          // ),
+          tabBarLabel: 'Episodes',
+          tabBarIcon: ({color}) => (
+            <SvgXml xml={EpisodeIcon} width="100%" height="100%" />
+          ),
         }}
       />
-      <Tab.Screen name="Characters" component={CharactersStack} />
-      <Tab.Screen name="Locations" component={LocationsStack} />
+      <Tab.Screen
+        name="Characters"
+        component={CharactersStack}
+        options={{
+          tabBarLabel: 'Characters',
+          tabBarIcon: ({color}) => (
+            <SvgXml xml={CharacterIcon} width="100%" height="80%" />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Locations"
+        component={LocationsStack}
+        options={{
+          tabBarLabel: 'Locations',
+          tabBarIcon: ({color}) => (
+            <SvgXml xml={LocationIcon} width="100%" height="100%" />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
