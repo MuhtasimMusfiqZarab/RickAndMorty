@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {CharactersProvider} from '../../_context/characters';
-import Characters from '../../components/characters';
+import {CharactersProvider} from '_context/characters';
+import Characters from 'components/characters';
 
 interface Props {
   navigation: any;
