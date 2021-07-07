@@ -52,11 +52,15 @@ function EpisodesProvider({children}: Props) {
   useEffect(() => {
     if (searchTerm) {
       setAllEpisodes([]);
-      GetEpisodes();
+      setPage(1);
     }
   }, [searchTerm]);
 
-  console.log('This is the new tern', searchTerm);
+  useEffect(() => {
+    if (page) {
+      GetEpisodes();
+    }
+  }, [page]);
 
   return (
     <EpisodesContext.Provider
