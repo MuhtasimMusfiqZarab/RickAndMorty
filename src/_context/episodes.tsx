@@ -37,7 +37,7 @@ function EpisodesProvider({children}: Props) {
   useEffect(() => {
     if (data?.episodes?.results?.length > 0) {
       setAllEpisodes((prevState: any) => {
-        return {...prevState, data};
+        return [...prevState, ...data?.episodes?.results];
       });
     }
   }, [data]);
@@ -45,7 +45,7 @@ function EpisodesProvider({children}: Props) {
   return (
     <EpisodesContext.Provider
       value={{
-        episodes: allEpisodes?.data?.episodes?.results,
+        episodes: allEpisodes,
         getMoreEpisodes: GetEpisodes,
         setPage,
         loading,
