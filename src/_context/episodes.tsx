@@ -5,12 +5,15 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import {useQuery} from '@apollo/client';
+import {useLazyQuery} from '@apollo/client';
 
 import getEpisodes from '../api/query/get-episodes';
 
 const EpisodesContext = createContext({
   episodes: null,
+  getMoreEpisodes: () => {},
+  setPage: (value: number) => {},
+  loading: true,
 });
 
 interface Props {
@@ -18,9 +21,18 @@ interface Props {
 }
 
 function EpisodesProvider({children}: Props) {
-  const [allEpisodes, setAllEpisodes] = useState<any>(null);
+  const [allEpisodes, setAllEpisodes] = useState<any>([]);
 
-  const {data, error, loading, refetch} = useQuery(getEpisodes);
+  const [page, setPage] = useState<number>(1);
+
+  const [GetEpisodes, {data, error, loading, refetch}] = useLazyQuery(
+    getEpisodes,
+    {
+      variables: {
+        page,
+      },
+    },
+  );
 
   useEffect(() => {
     if (data?.episodes?.results?.length > 0) {
@@ -34,6 +46,9 @@ function EpisodesProvider({children}: Props) {
     <EpisodesContext.Provider
       value={{
         episodes: allEpisodes?.data?.episodes?.results,
+        getMoreEpisodes: GetEpisodes,
+        setPage,
+        loading,
       }}>
       {children}
     </EpisodesContext.Provider>
