@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     borderRadius: 5,
+    backgroundColor: '#fff',
   },
 
   headerTitle: {

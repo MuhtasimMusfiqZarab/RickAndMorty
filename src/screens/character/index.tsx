@@ -1,25 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {CardDetail} from '../../components/_root';
 
 interface Props {
   navigation: any;
   route: any;
 }
 function index({navigation, route}: Props) {
-  return (
-    <View style={styles.container}>
-      <Text>Character Detail</Text>
-    </View>
-  );
+  const id = route?.params?.id;
+  const item = route?.params?.item;
+  return <CardDetail route={route?.name} item={item} />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default index;
