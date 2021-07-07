@@ -5,6 +5,7 @@ const getCharacters = gql`
     characters(page: $page, filter: $filter) {
       info {
         count
+        pages
       }
       results {
         id
