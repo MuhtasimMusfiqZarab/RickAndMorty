@@ -5,12 +5,15 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import {useQuery} from '@apollo/client';
+import {useLazyQuery} from '@apollo/client';
 
 import getCharacters from '../api/query/get-characters';
 
 const CharactersContext = createContext({
   characters: null,
+  getMoreCharacters: () => {},
+  setPage: (value: number) => {},
+  loading: true,
 });
 
 interface Props {
@@ -18,14 +21,22 @@ interface Props {
 }
 
 function CharactersProvider({children}: Props) {
-  const [allCharacters, setAllCharacters] = useState<any>(null);
+  const [allCharacters, setAllCharacters] = useState<any>([]);
+  const [page, setPage] = useState<number>(1);
 
-  const {data, error, loading, refetch} = useQuery(getCharacters);
+  const [GetCharacters, {data, error, loading, refetch}] = useLazyQuery(
+    getCharacters,
+    {
+      variables: {
+        page,
+      },
+    },
+  );
 
   useEffect(() => {
     if (data?.characters?.results?.length > 0) {
       setAllCharacters((prevState: any) => {
-        return {...prevState, data};
+        return [...prevState, ...data?.characters?.results];
       });
     }
   }, [data]);
@@ -33,7 +44,10 @@ function CharactersProvider({children}: Props) {
   return (
     <CharactersContext.Provider
       value={{
-        characters: allCharacters?.data?.characters?.results,
+        characters: allCharacters,
+        getMoreCharacters: GetCharacters,
+        setPage,
+        loading,
       }}>
       {children}
     </CharactersContext.Provider>

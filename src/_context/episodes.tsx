@@ -22,7 +22,6 @@ interface Props {
 
 function EpisodesProvider({children}: Props) {
   const [allEpisodes, setAllEpisodes] = useState<any>([]);
-
   const [page, setPage] = useState<number>(1);
 
   const [GetEpisodes, {data, error, loading, refetch}] = useLazyQuery(

@@ -5,12 +5,15 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import {useQuery} from '@apollo/client';
+import {useLazyQuery} from '@apollo/client';
 
 import getLocations from '../api/query/get-locations';
 
 const LocationsContext = createContext({
   locations: null,
+  getMoreLocations: () => {},
+  setPage: (value: number) => {},
+  loading: true,
 });
 
 interface Props {
@@ -18,14 +21,22 @@ interface Props {
 }
 
 function LocationsProvider({children}: Props) {
-  const [allLocations, setAllLocations] = useState<any>(null);
+  const [allLocations, setAllLocations] = useState<any>([]);
+  const [page, setPage] = useState<number>(1);
 
-  const {data, error, loading, refetch} = useQuery(getLocations);
+  const [GetLocations, {data, error, loading, refetch}] = useLazyQuery(
+    getLocations,
+    {
+      variables: {
+        page,
+      },
+    },
+  );
 
   useEffect(() => {
     if (data?.locations?.results?.length > 0) {
       setAllLocations((prevState: any) => {
-        return {...prevState, data};
+        return [...prevState, ...data?.locations?.results];
       });
     }
   }, [data]);
@@ -33,7 +44,10 @@ function LocationsProvider({children}: Props) {
   return (
     <LocationsContext.Provider
       value={{
-        locations: allLocations?.data?.locations?.results,
+        locations: allLocations,
+        getMoreLocations: GetLocations,
+        setPage,
+        loading,
       }}>
       {children}
     </LocationsContext.Provider>

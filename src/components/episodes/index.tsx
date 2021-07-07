@@ -15,7 +15,7 @@ function index({navigation, route}: Props) {
   const [term, setTerm] = useState('');
 
   const changeOffset = () => {
-    if (!loading) {
+    if (!loading && currentPage < 3) {
       setCurrentPage(currentPage + 1);
     }
   };
