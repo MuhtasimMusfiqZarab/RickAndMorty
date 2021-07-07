@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+
+import {CharactersProvider} from '../../_context/characters';
+import Characters from '../../components/characters';
 
 interface Props {
   navigation: any;
@@ -8,19 +10,10 @@ interface Props {
 
 function index({navigation, route}: Props) {
   return (
-    <View style={styles.container}>
-      <Text>All the characters</Text>
-    </View>
+    <CharactersProvider>
+      <Characters navigation={navigation} route={route} />
+    </CharactersProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default index;

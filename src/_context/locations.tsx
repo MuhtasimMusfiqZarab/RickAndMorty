@@ -1,25 +1,25 @@
 import React, {createContext, useContext, ReactNode} from 'react';
 import {useQuery, gql} from '@apollo/client';
 
-const EpisodesContext = createContext({
-  episodes: null,
+const LocationsContext = createContext({
+  locations: null,
 });
 
 interface Props {
   children: ReactNode;
 }
 
-function EpisodesProvider({children}: Props) {
+function LocationsProvider({children}: Props) {
   const {data, error, loading, refetch} = useQuery(
     gql`
       query {
-        episodes {
+        locations {
           results {
             id
             name
-            air_date
-            episode
-            characters {
+            type
+            dimension
+            residents {
               id
               name
             }
@@ -31,15 +31,15 @@ function EpisodesProvider({children}: Props) {
   );
 
   return (
-    <EpisodesContext.Provider
+    <LocationsContext.Provider
       value={{
-        episodes: data?.episodes?.results,
+        locations: data?.locations?.results,
       }}>
       {children}
-    </EpisodesContext.Provider>
+    </LocationsContext.Provider>
   );
 }
 
-const useEpisodes = () => useContext(EpisodesContext);
+const useLocations = () => useContext(LocationsContext);
 
-export {EpisodesProvider, useEpisodes};
+export {LocationsProvider, useLocations};

@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+
+import {LocationsProvider} from '../../_context/locations';
+import Locations from '../../components/locations';
 
 interface Props {
   navigation: any;
@@ -8,19 +10,10 @@ interface Props {
 
 function index({navigation, route}: Props) {
   return (
-    <View style={styles.container}>
-      <Text>All the locations</Text>
-    </View>
+    <LocationsProvider>
+      <Locations navigation={navigation} route={route} />
+    </LocationsProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default index;
