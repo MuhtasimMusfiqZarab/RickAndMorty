@@ -1,6 +1,8 @@
 import React, {createContext, useContext, ReactNode} from 'react';
 import {useQuery, gql} from '@apollo/client';
 
+import getCharacters from '../api/query/getCharacters';
+
 const CharactersContext = createContext({
   characters: null,
 });
@@ -10,22 +12,7 @@ interface Props {
 }
 
 function CharactersProvider({children}: Props) {
-  const {data, error, loading, refetch} = useQuery(
-    gql`
-      query {
-        characters {
-          info {
-            count
-          }
-          results {
-            id
-            name
-            image
-          }
-        }
-      }
-    `,
-  );
+  const {data, error, loading, refetch} = useQuery(getCharacters);
 
   return (
     <CharactersContext.Provider

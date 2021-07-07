@@ -1,6 +1,8 @@
 import React, {createContext, useContext, ReactNode} from 'react';
 import {useQuery, gql} from '@apollo/client';
 
+import getLocations from '../api/query/getLocations';
+
 const LocationsContext = createContext({
   locations: null,
 });
@@ -10,25 +12,7 @@ interface Props {
 }
 
 function LocationsProvider({children}: Props) {
-  const {data, error, loading, refetch} = useQuery(
-    gql`
-      query {
-        locations {
-          results {
-            id
-            name
-            type
-            dimension
-            residents {
-              id
-              name
-            }
-            created
-          }
-        }
-      }
-    `,
-  );
+  const {data, error, loading, refetch} = useQuery(getLocations);
 
   return (
     <LocationsContext.Provider
