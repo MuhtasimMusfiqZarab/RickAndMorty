@@ -48,10 +48,9 @@ function index({navigation, route}: Props) {
           renderItem={({item}) => {
             return (
               <Card
-                title={item?.name}
-                subTitle={`Type: ${item?.type}`}
                 navigation={navigation}
                 navigationRoute="Location"
+                item={item}
               />
             );
           }}

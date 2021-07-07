@@ -9,10 +9,15 @@ interface Props {
 }
 
 function index({navigation, route}: Props) {
-  const {episodes, setPage, getMoreEpisodes, loading} = useEpisodes();
+  const {
+    episodes,
+    setPage,
+    getMoreEpisodes,
+    loading,
+    searchTerm,
+    setSearchTerm,
+  } = useEpisodes();
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const [term, setTerm] = useState('');
 
   const changeOffset = () => {
     if (!loading && currentPage < 3) {
@@ -32,8 +37,8 @@ function index({navigation, route}: Props) {
     <Container>
       <>
         <Searchbar
-          term={term}
-          onTermChange={(newValue: string) => setTerm(newValue)}
+          term={searchTerm}
+          onTermChange={(newValue: string) => setSearchTerm(newValue)}
         />
         <FlatList
           data={episodes}
@@ -46,10 +51,9 @@ function index({navigation, route}: Props) {
           renderItem={({item}) => {
             return (
               <Card
-                title={item?.name}
-                subTitle={`Aired on ${item?.air_date}`}
                 navigation={navigation}
                 navigationRoute="Episode"
+                item={item}
               />
             );
           }}

@@ -6,7 +6,7 @@ import {SearchIcon} from '../../../_icons';
 
 interface Props {
   term: any;
-  onTermChange: any;
+  onTermChange?: any;
   onTermSubmit?: any;
 }
 

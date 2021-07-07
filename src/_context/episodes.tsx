@@ -14,6 +14,8 @@ const EpisodesContext = createContext({
   getMoreEpisodes: () => {},
   setPage: (value: number) => {},
   loading: true,
+  setSearchTerm: (value: string) => {},
+  searchTerm: null,
 });
 
 interface Props {
@@ -22,6 +24,7 @@ interface Props {
 
 function EpisodesProvider({children}: Props) {
   const [allEpisodes, setAllEpisodes] = useState<any>([]);
+  const [searchTerm, setSearchTerm] = useState<any>(null);
   const [page, setPage] = useState<number>(1);
 
   const [GetEpisodes, {data, error, loading, refetch}] = useLazyQuery(
@@ -29,6 +32,9 @@ function EpisodesProvider({children}: Props) {
     {
       variables: {
         page,
+        filter: {
+          name: searchTerm,
+        },
       },
     },
   );
@@ -41,6 +47,15 @@ function EpisodesProvider({children}: Props) {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (searchTerm) {
+      setAllEpisodes([]);
+      GetEpisodes();
+    }
+  }, [searchTerm]);
+
+  console.log('This is the new tern', searchTerm);
+
   return (
     <EpisodesContext.Provider
       value={{
@@ -48,6 +63,8 @@ function EpisodesProvider({children}: Props) {
         getMoreEpisodes: GetEpisodes,
         setPage,
         loading,
+        setSearchTerm,
+        searchTerm,
       }}>
       {children}
     </EpisodesContext.Provider>

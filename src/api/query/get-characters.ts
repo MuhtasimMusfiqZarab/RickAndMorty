@@ -9,7 +9,25 @@ const getCharacters = gql`
       results {
         id
         name
+        status
+        species
+        type
+        gender
+        origin {
+          id
+          name
+          type
+          dimension
+          created
+        }
+        location {
+          name
+        }
         image
+        episode {
+          name
+        }
+        created
       }
     }
   }
