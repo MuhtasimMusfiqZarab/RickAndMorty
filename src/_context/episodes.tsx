@@ -16,6 +16,8 @@ const EpisodesContext = createContext({
   loading: true,
   setSearchTerm: (value: string) => {},
   searchTerm: null,
+  totalPages: 0,
+  currentPage: 0,
 });
 
 interface Props {
@@ -65,6 +67,8 @@ function EpisodesProvider({children}: Props) {
         loading,
         setSearchTerm,
         searchTerm,
+        totalPages: data?.episodes?.info?.pages,
+        currentPage: page,
       }}>
       {children}
     </EpisodesContext.Provider>

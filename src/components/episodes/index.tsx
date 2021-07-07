@@ -16,18 +16,15 @@ function index({navigation, route}: Props) {
     loading,
     searchTerm,
     setSearchTerm,
+    totalPages,
+    currentPage,
   } = useEpisodes();
-  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const changeOffset = () => {
-    if (!loading && currentPage < 3) {
-      setCurrentPage(currentPage + 1);
+    if (!loading && currentPage < totalPages) {
+      setPage(currentPage + 1);
     }
   };
-
-  useEffect(() => {
-    setPage(currentPage);
-  }, [currentPage]);
 
   useEffect(() => {
     getMoreEpisodes();
