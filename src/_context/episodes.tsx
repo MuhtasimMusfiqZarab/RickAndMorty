@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import {useQuery} from '@apollo/client';
 
-import getEpisodes from '../api/query/getEpisodes';
+import getEpisodes from '../api/query/get-episodes';
 
 const EpisodesContext = createContext({
   episodes: null,

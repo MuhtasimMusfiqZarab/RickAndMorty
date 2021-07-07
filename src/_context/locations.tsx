@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import {useQuery} from '@apollo/client';
 
-import getLocations from '../api/query/getLocations';
+import getLocations from '../api/query/get-locations';
 
 const LocationsContext = createContext({
   locations: null,

@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import {useQuery} from '@apollo/client';
 
-import getCharacters from '../api/query/getCharacters';
+import getCharacters from '../api/query/get-characters';
 
 const CharactersContext = createContext({
   characters: null,
