@@ -1,14 +1,6 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Button,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
-
+import React, {useState, useEffect} from 'react';
+import {FlatList} from 'react-native';
+import {Container, Card, Searchbar} from '../_root';
 import {useEpisodes} from '../../_context/episodes';
 
 interface Props {
@@ -17,38 +9,55 @@ interface Props {
 }
 
 function index({navigation, route}: Props) {
-  const {episodes} = useEpisodes();
+  const {
+    episodes,
+    setPage,
+    getMoreEpisodes,
+    loading,
+    searchTerm,
+    setSearchTerm,
+    totalPages,
+    currentPage,
+  } = useEpisodes();
+
+  const changeOffset = () => {
+    if (!loading && currentPage < totalPages) {
+      setPage(currentPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    getMoreEpisodes();
+  }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
+    <Container>
+      <>
+        <Searchbar
+          term={searchTerm}
+          onTermChange={(newValue: string) => setSearchTerm(newValue)}
+        />
         <FlatList
           data={episodes}
+          showsVerticalScrollIndicator={false}
+          onEndReached={() => {
+            changeOffset();
+          }}
+          onEndReachedThreshold={0.01}
           keyExtractor={episode => episode?.id}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Episode', {id: item?.id})}>
-                <Text>{item?.name}</Text>
-              </TouchableOpacity>
+              <Card
+                navigation={navigation}
+                navigationRoute="Episode"
+                item={item}
+              />
             );
           }}
         />
-      </View>
-    </SafeAreaView>
+      </>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 26,
-  },
-  title: {
-    textAlign: 'center',
-    marginVertical: 8,
-  },
-});
 
 export default index;

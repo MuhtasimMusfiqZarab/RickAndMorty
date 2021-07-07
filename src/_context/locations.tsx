@@ -1,8 +1,19 @@
-import React, {createContext, useContext, ReactNode} from 'react';
-import {useQuery, gql} from '@apollo/client';
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from 'react';
+import {useLazyQuery} from '@apollo/client';
+
+import getLocations from '../api/query/get-locations';
 
 const LocationsContext = createContext({
   locations: null,
+  getMoreLocations: () => {},
+  setPage: (value: number) => {},
+  loading: true,
 });
 
 interface Props {
@@ -10,30 +21,33 @@ interface Props {
 }
 
 function LocationsProvider({children}: Props) {
-  const {data, error, loading, refetch} = useQuery(
-    gql`
-      query {
-        locations {
-          results {
-            id
-            name
-            type
-            dimension
-            residents {
-              id
-              name
-            }
-            created
-          }
-        }
-      }
-    `,
+  const [allLocations, setAllLocations] = useState<any>([]);
+  const [page, setPage] = useState<number>(1);
+
+  const [GetLocations, {data, error, loading, refetch}] = useLazyQuery(
+    getLocations,
+    {
+      variables: {
+        page,
+      },
+    },
   );
+
+  useEffect(() => {
+    if (data?.locations?.results?.length > 0) {
+      setAllLocations((prevState: any) => {
+        return [...prevState, ...data?.locations?.results];
+      });
+    }
+  }, [data]);
 
   return (
     <LocationsContext.Provider
       value={{
-        locations: data?.locations?.results,
+        locations: allLocations,
+        getMoreLocations: GetLocations,
+        setPage,
+        loading,
       }}>
       {children}
     </LocationsContext.Provider>

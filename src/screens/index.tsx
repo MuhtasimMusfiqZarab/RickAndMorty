@@ -1,6 +1,10 @@
 import React from 'react';
+
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
+
+import {SvgXml} from 'react-native-svg';
+import {CharacterIcon, EpisodeIcon, LocationIcon} from '../_icons';
 
 import EpisodesScreen from './episodes';
 import EpisodeScreen from './episode';
@@ -18,7 +22,7 @@ const EpisodesStack = () => {
       initialRouteName="Episodes"
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#62a4ab',
+          backgroundColor: '#ee7168',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -37,7 +41,7 @@ const CharactersStack = () => {
       initialRouteName="Characters"
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#62a4ab',
+          backgroundColor: '#4AA0EC',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -56,7 +60,7 @@ const LocationsStack = () => {
       initialRouteName="Locations"
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#62a4ab',
+          backgroundColor: '#4AA0EC',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -73,9 +77,36 @@ const LocationsStack = () => {
 export default function IndexScreen() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Episodes" component={EpisodesStack} />
-      <Tab.Screen name="Characters" component={CharactersStack} />
-      <Tab.Screen name="Locations" component={LocationsStack} />
+      <Tab.Screen
+        name="Episodes"
+        component={EpisodesStack}
+        options={{
+          tabBarLabel: 'Episodes',
+          tabBarIcon: ({color}) => (
+            <SvgXml xml={EpisodeIcon} width="100%" height="100%" />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Characters"
+        component={CharactersStack}
+        options={{
+          tabBarLabel: 'Characters',
+          tabBarIcon: ({color}) => (
+            <SvgXml xml={CharacterIcon} width="100%" height="80%" />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Locations"
+        component={LocationsStack}
+        options={{
+          tabBarLabel: 'Locations',
+          tabBarIcon: ({color}) => (
+            <SvgXml xml={LocationIcon} width="100%" height="100%" />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

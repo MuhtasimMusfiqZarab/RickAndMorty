@@ -1,9 +1,0 @@
-query GET_EPISODES($page: Int, $filter: FilterEpisode) {
-  episodes(page: $page, filter: $filter) {
-    info
-    results {
-      id
-      name
-    }
-  }
-}

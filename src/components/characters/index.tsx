@@ -1,14 +1,7 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Button,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {FlatList} from 'react-native';
+
+import {Container, Card, Searchbar} from '../_root';
 
 import {useCharacters} from '../../_context/characters';
 
@@ -18,44 +11,53 @@ interface Props {
 }
 
 function index({navigation, route}: Props) {
-  const {characters} = useCharacters();
+  const {characters, setPage, getMoreCharacters, loading} = useCharacters();
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const [term, setTerm] = useState('');
+
+  const changeOffset = () => {
+    if (!loading && currentPage < 34) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    setPage(currentPage);
+  }, [currentPage]);
+
+  useEffect(() => {
+    getMoreCharacters();
+  }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
+    <Container>
+      <>
+        <Searchbar
+          term={term}
+          onTermChange={(newValue: string) => setTerm(newValue)}
+        />
         <FlatList
           data={characters}
+          showsVerticalScrollIndicator={false}
+          onEndReached={() => {
+            changeOffset();
+          }}
           keyExtractor={character => character?.id}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('Character', {id: item?.id})
-                }>
-                <Image source={{uri: item.image}} style={styles.image} />
-              </TouchableOpacity>
+              <Card
+                navigation={navigation}
+                navigationRoute="Character"
+                item={item}
+              />
             );
           }}
         />
-      </View>
-    </SafeAreaView>
+      </>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 26,
-  },
-  title: {
-    textAlign: 'center',
-    marginVertical: 40,
-  },
-  image: {
-    height: 200,
-    width: 200,
-  },
-});
 
 export default index;
