@@ -5,6 +5,8 @@ import {Container, Card} from '../_root';
 
 import {useEpisodes} from '../../_context/episodes';
 
+import Searchbar from '../_root/searchbar';
+
 interface Props {
   navigation: any;
   route: any;
@@ -12,8 +14,9 @@ interface Props {
 
 function index({navigation, route}: Props) {
   const {episodes, setPage, getMoreEpisodes, loading} = useEpisodes();
-
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const [term, setTerm] = useState('');
 
   const changeOffset = () => {
     if (!loading) {
@@ -31,25 +34,31 @@ function index({navigation, route}: Props) {
 
   return (
     <Container>
-      <FlatList
-        data={episodes}
-        showsVerticalScrollIndicator={false}
-        onEndReached={() => {
-          changeOffset();
-        }}
-        onEndReachedThreshold={0.01}
-        keyExtractor={episode => episode?.id}
-        renderItem={({item}) => {
-          return (
-            <Card
-              title={item?.name}
-              subTitle={`Aired on ${item?.air_date}`}
-              navigation={navigation}
-              navigationRoute="Episode"
-            />
-          );
-        }}
-      />
+      <>
+        <Searchbar
+          term={term}
+          onTermChange={(newValue: string) => setTerm(newValue)}
+        />
+        <FlatList
+          data={episodes}
+          showsVerticalScrollIndicator={false}
+          onEndReached={() => {
+            changeOffset();
+          }}
+          onEndReachedThreshold={0.01}
+          keyExtractor={episode => episode?.id}
+          renderItem={({item}) => {
+            return (
+              <Card
+                title={item?.name}
+                subTitle={`Aired on ${item?.air_date}`}
+                navigation={navigation}
+                navigationRoute="Episode"
+              />
+            );
+          }}
+        />
+      </>
     </Container>
   );
 }
