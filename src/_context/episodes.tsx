@@ -49,18 +49,11 @@ function EpisodesProvider({children}: Props) {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (searchTerm) {
-      setAllEpisodes([]);
-      setPage(1);
-    }
-  }, [searchTerm]);
-
-  useEffect(() => {
-    if (page) {
-      GetEpisodes();
-    }
-  }, [page]);
+  const changeSearchTerm = (term: string) => {
+    setSearchTerm(term);
+    setPage(1);
+    setAllEpisodes([]);
+  };
 
   return (
     <EpisodesContext.Provider
@@ -69,7 +62,7 @@ function EpisodesProvider({children}: Props) {
         getMoreEpisodes: GetEpisodes,
         setPage,
         loading,
-        setSearchTerm,
+        setSearchTerm: changeSearchTerm,
         searchTerm,
         totalPages: data?.episodes?.info?.pages,
         currentPage: page,
