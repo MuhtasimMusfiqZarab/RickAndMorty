@@ -14,6 +14,12 @@ const CharactersContext = createContext({
   getMoreCharacters: () => {},
   setPage: (value: number) => {},
   loading: true,
+  setSearchTerm: (value: string) => {},
+  searchTerm: null,
+  totalPages: 0,
+  currentPage: 0,
+  setValue: (value: string) => {},
+  value: null,
 });
 
 interface Props {
@@ -22,6 +28,9 @@ interface Props {
 
 function CharactersProvider({children}: Props) {
   const [allCharacters, setAllCharacters] = useState<any>([]);
+  const [searchTerm, setSearchTerm] = useState<any>(null);
+  const [value, setValue] = useState<any>(null);
+
   const [page, setPage] = useState<number>(1);
 
   const [GetCharacters, {data, error, loading, refetch}] = useLazyQuery(
@@ -29,6 +38,10 @@ function CharactersProvider({children}: Props) {
     {
       variables: {
         page,
+        filter: {
+          name: searchTerm,
+          status: value,
+        },
       },
     },
   );
@@ -41,6 +54,18 @@ function CharactersProvider({children}: Props) {
     }
   }, [data]);
 
+  const changeSearchTerm = (term: string) => {
+    setAllCharacters([]);
+    setSearchTerm(term);
+    setPage(1);
+  };
+
+  const changeFilterValue = (term: string) => {
+    setAllCharacters([]);
+    setValue(term);
+    setPage(1);
+  };
+
   return (
     <CharactersContext.Provider
       value={{
@@ -48,6 +73,12 @@ function CharactersProvider({children}: Props) {
         getMoreCharacters: GetCharacters,
         setPage,
         loading,
+        setSearchTerm: changeSearchTerm,
+        searchTerm,
+        totalPages: data?.characters?.info?.pages,
+        currentPage: page,
+        value,
+        setValue: changeFilterValue,
       }}>
       {children}
     </CharactersContext.Provider>

@@ -1,30 +1,39 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-function index() {
+interface Props {
+  items: any;
+  setItems: any;
+  value: any;
+  setValue: any;
+}
+
+function index({items, setItems, value, setValue}: Props) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple'},
-    {label: 'Banana', value: 'banana'},
-  ]);
+
   return (
-    <DropDownPicker
-      open={open}
-      value={value}
-      items={items}
-      setOpen={setOpen}
-      setValue={setValue}
-      setItems={setItems}
-      style={styles.container}
-    />
+    <View style={styles.wrapper}>
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        style={styles.container}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     borderColor: '#c7ccdb',
+  },
+  wrapper: {
+    margin: 5,
+    zIndex: 10,
   },
 });
 
