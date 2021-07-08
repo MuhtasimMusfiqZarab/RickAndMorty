@@ -50,9 +50,9 @@ function EpisodesProvider({children}: Props) {
   }, [data]);
 
   const changeSearchTerm = (term: string) => {
+    setAllEpisodes([]);
     setSearchTerm(term);
     setPage(1);
-    setAllEpisodes([]);
   };
 
   return (

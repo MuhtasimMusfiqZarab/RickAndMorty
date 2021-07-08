@@ -11,21 +11,22 @@ interface Props {
 }
 
 function index({navigation, route}: Props) {
-  const {locations, setPage, getMoreLocations, loading} = useLocations();
-
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const [term, setTerm] = useState('');
+  const {
+    locations,
+    setPage,
+    getMoreLocations,
+    loading,
+    searchTerm,
+    setSearchTerm,
+    totalPages,
+    currentPage,
+  } = useLocations();
 
   const changeOffset = () => {
-    if (!loading && currentPage < 6) {
-      setCurrentPage(currentPage + 1);
+    if (!loading && currentPage < totalPages) {
+      setPage(currentPage + 1);
     }
   };
-
-  useEffect(() => {
-    setPage(currentPage);
-  }, [currentPage]);
 
   useEffect(() => {
     getMoreLocations();
@@ -35,8 +36,8 @@ function index({navigation, route}: Props) {
     <Container>
       <>
         <Searchbar
-          term={term}
-          onTermChange={(newValue: string) => setTerm(newValue)}
+          term={searchTerm}
+          onTermChange={(newValue: string) => setSearchTerm(newValue)}
         />
         <FlatList
           data={locations}

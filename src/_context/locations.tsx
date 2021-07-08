@@ -14,6 +14,10 @@ const LocationsContext = createContext({
   getMoreLocations: () => {},
   setPage: (value: number) => {},
   loading: true,
+  setSearchTerm: (value: string) => {},
+  searchTerm: null,
+  totalPages: 0,
+  currentPage: 0,
 });
 
 interface Props {
@@ -22,6 +26,7 @@ interface Props {
 
 function LocationsProvider({children}: Props) {
   const [allLocations, setAllLocations] = useState<any>([]);
+  const [searchTerm, setSearchTerm] = useState<any>(null);
   const [page, setPage] = useState<number>(1);
 
   const [GetLocations, {data, error, loading, refetch}] = useLazyQuery(
@@ -29,6 +34,9 @@ function LocationsProvider({children}: Props) {
     {
       variables: {
         page,
+        filter: {
+          name: searchTerm,
+        },
       },
     },
   );
@@ -41,6 +49,12 @@ function LocationsProvider({children}: Props) {
     }
   }, [data]);
 
+  const changeSearchTerm = (term: string) => {
+    setAllLocations([]);
+    setSearchTerm(term);
+    setPage(1);
+  };
+
   return (
     <LocationsContext.Provider
       value={{
@@ -48,6 +62,10 @@ function LocationsProvider({children}: Props) {
         getMoreLocations: GetLocations,
         setPage,
         loading,
+        setSearchTerm: changeSearchTerm,
+        searchTerm,
+        totalPages: data?.episodes?.info?.pages,
+        currentPage: page,
       }}>
       {children}
     </LocationsContext.Provider>

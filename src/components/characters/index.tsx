@@ -11,21 +11,22 @@ interface Props {
 }
 
 function index({navigation, route}: Props) {
-  const {characters, setPage, getMoreCharacters, loading} = useCharacters();
-
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const [term, setTerm] = useState('');
+  const {
+    characters,
+    setPage,
+    getMoreCharacters,
+    loading,
+    searchTerm,
+    setSearchTerm,
+    totalPages,
+    currentPage,
+  } = useCharacters();
 
   const changeOffset = () => {
-    if (!loading && currentPage < 34) {
-      setCurrentPage(currentPage + 1);
+    if (!loading && currentPage < totalPages) {
+      setPage(currentPage + 1);
     }
   };
-
-  useEffect(() => {
-    setPage(currentPage);
-  }, [currentPage]);
 
   useEffect(() => {
     getMoreCharacters();
@@ -35,8 +36,8 @@ function index({navigation, route}: Props) {
     <Container>
       <>
         <Searchbar
-          term={term}
-          onTermChange={(newValue: string) => setTerm(newValue)}
+          term={searchTerm}
+          onTermChange={(newValue: string) => setSearchTerm(newValue)}
         />
         <FlatList
           data={characters}
