@@ -39,7 +39,6 @@ function index({navigation, route}: Props) {
           term={searchTerm}
           onTermChange={(newValue: string) => setSearchTerm(newValue)}
         />
-        <Dropdown />
         <FlatList
           data={locations}
           showsVerticalScrollIndicator={false}

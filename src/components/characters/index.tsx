@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native';
 
-import {Container, Card, Searchbar} from '../_root';
+import {Container, Card, Searchbar, Dropdown} from '../_root';
 
 import {useCharacters} from '../../_context/characters';
 
@@ -20,7 +20,15 @@ function index({navigation, route}: Props) {
     setSearchTerm,
     totalPages,
     currentPage,
+    value,
+    setValue,
   } = useCharacters();
+
+  const [items, setItems] = useState([
+    {label: 'Alive', value: 'Alive'},
+    {label: 'unknown', value: 'unknown'},
+    {label: 'Dead', value: 'Dead'},
+  ]);
 
   const changeOffset = () => {
     if (!loading && currentPage < totalPages) {
@@ -38,6 +46,12 @@ function index({navigation, route}: Props) {
         <Searchbar
           term={searchTerm}
           onTermChange={(newValue: string) => setSearchTerm(newValue)}
+        />
+        <Dropdown
+          items={items}
+          setItems={setItems}
+          value={value}
+          setValue={setValue}
         />
         <FlatList
           data={characters}
