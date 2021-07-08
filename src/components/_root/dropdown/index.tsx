@@ -13,27 +13,21 @@ function index({items, setItems, value, setValue}: Props) {
   const [open, setOpen] = useState(false);
 
   return (
-    <View style={styles.wrapper}>
-      <DropDownPicker
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-        style={styles.container}
-      />
-    </View>
+    <DropDownPicker
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+      style={styles.container}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     borderColor: '#c7ccdb',
-  },
-  wrapper: {
-    margin: 5,
-    zIndex: 10,
   },
 });
 
