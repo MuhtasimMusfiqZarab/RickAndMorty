@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native';
 
-import {Container, Card, Searchbar} from '../_root';
+import {Container, Card, Searchbar, Dropdown} from '../_root';
 
 import {useLocations} from '../../_context/locations';
 
@@ -39,6 +39,7 @@ function index({navigation, route}: Props) {
           term={searchTerm}
           onTermChange={(newValue: string) => setSearchTerm(newValue)}
         />
+        <Dropdown />
         <FlatList
           data={locations}
           showsVerticalScrollIndicator={false}

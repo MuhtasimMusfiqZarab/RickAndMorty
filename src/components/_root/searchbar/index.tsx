@@ -31,10 +31,11 @@ const index = ({term, onTermChange, onTermSubmit}: Props) => {
 const styles = StyleSheet.create({
   backgroundStyle: {
     marginTop: 15,
-    marginBottom: 15,
+    marginBottom: 5,
     backgroundColor: '#F0EEEE',
     height: 50,
-    marginHorizontal: 15,
+    marginLeft: 5,
+    marginRight: 5,
     borderRadius: 5,
     flexDirection: 'row',
     borderWidth: 1,
